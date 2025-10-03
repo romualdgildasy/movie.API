@@ -25,3 +25,4 @@ c:\Users\HP\MovieBackend\movie.API\obj\Debug\net9.0\refint\movie.API.dll
 c:\Users\HP\MovieBackend\movie.API\obj\Debug\net9.0\movie.API.pdb
 c:\Users\HP\MovieBackend\movie.API\obj\Debug\net9.0\movie.API.genruntimeconfig.cache
 c:\Users\HP\MovieBackend\movie.API\obj\Debug\net9.0\ref\movie.API.dll
+C:\Users\HP\MovieBackend\movie.API\obj\Debug\net9.0\movie.API.sourcelink.json
