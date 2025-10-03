@@ -13,6 +13,6 @@ List<MovieDto> movies =
 //route pour nos film
 app.MapGet("/movies", () => movies);
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/movies{id}", (int id) => movies.Find(movie => movie.Id == id));
 
 app.Run();

@@ -1,1 +1,4 @@
 GET http://localhost:5126/movies 
+
+###
+GET http://localhost:5126/movies/1 
