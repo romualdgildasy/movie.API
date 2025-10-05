@@ -13,6 +13,22 @@ List<MovieDto> movies =
 //route pour nos film
 app.MapGet("/movies", () => movies);
 
-app.MapGet("/movies{id}", (int id) => movies.Find(movie => movie.Id == id));
+app.MapGet("/movies{id}", (int id) => movies.Find(movie => movie.Id == id))
+   .WithName("GetMovie");
+//creation de la route de post
+app.MapPost("/movies", (CreateMovieDto newMovie) =>
+{
+    MovieDto movie = new
+        (
+        Id: movies.Count + 1,
+        Title: newMovie.Title,
+        Director: newMovie.Director,
+        ReleaseDate: newMovie.ReleaseDate
+        );
+    movies.Add(movie);
+
+    return Results.CreatedAtRoute("GetMovie", new { id = movie.Id }, movie);
+});
+
 
 app.Run();
