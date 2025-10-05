@@ -11,12 +11,12 @@ List<MovieDto> movies =
 ];
 
 //route pour nos film
-app.MapGet("/movies", () => movies);
+app.MapGet("movies", () => movies);
 
-app.MapGet("/movies{id}", (int id) => movies.Find(movie => movie.Id == id))
+app.MapGet("movies{id}", (int id) => movies.Find(movie => movie.Id == id))
    .WithName("GetMovie");
 //creation de la route de post
-app.MapPost("/movies", (CreateMovieDto newMovie) =>
+app.MapPost("movies", (CreateMovieDto newMovie) =>
 {
     MovieDto movie = new
         (
@@ -30,5 +30,19 @@ app.MapPost("/movies", (CreateMovieDto newMovie) =>
     return Results.CreatedAtRoute("GetMovie", new { id = movie.Id }, movie);
 });
 
+//creatio de la methgo PUT  pour modifier les films
+app.MapPut("movies/{id}", (int id, UpdateMovieDto updateMovie) =>
+    {
+        var index = movies.FindIndex(movie => movie.Id == id);
+        movies[index] = new MovieDto
+        (
+            id,
+             updateMovie.Title,
+             updateMovie.Director,
+             updateMovie.ReleaseDate
+        );
+        return Results.NoContent();
+    }
+);
 
 app.Run();
