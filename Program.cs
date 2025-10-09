@@ -37,6 +37,10 @@ app.MapPost("movies", (CreateMovieDto newMovie) =>
 app.MapPut("movies/{id}", (int id, UpdateMovieDto updateMovie) =>
     {
         var index = movies.FindIndex(movie => movie.Id == id);
+        if (index== -1)
+        {
+            return Results.NotFound();
+        }
         movies[index] = new MovieDto
         (
             id,
