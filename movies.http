@@ -2,7 +2,7 @@
 GET http://localhost:5126/movies 
 
 ###
-GET http://localhost:5126/movies/2
+GET http://localhost:5126/movies/1
 
 ###
 POST  http://localhost:5126/movies 
@@ -22,3 +22,5 @@ Content-Type: application/json
     "director": "Christopher Nolan" ,
     "releaseDate":"2014-11-07"
 }
+###
+DELETE  http://localhost:5126/movies/1

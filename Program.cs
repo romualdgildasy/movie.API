@@ -13,8 +13,11 @@ List<MovieDto> movies =
 //route pour nos film
 app.MapGet("movies", () => movies);
 
-app.MapGet("movies{id}", (int id) => movies.Find(movie => movie.Id == id))
-   .WithName("GetMovie");
+app.MapGet("movies{id}", (int id) =>
+{
+    MovieDto ? movie = movies.Find(movie => movie.Id == id);
+    return (movie is null) ? Results.NotFound() : Results.Ok(movie);
+}).WithName("GetMovie");
 //creation de la route de post
 app.MapPost("movies", (CreateMovieDto newMovie) =>
 {
@@ -44,5 +47,12 @@ app.MapPut("movies/{id}", (int id, UpdateMovieDto updateMovie) =>
         return Results.NoContent();
     }
 );
+
+//creation de la methode de suppression
+app.MapDelete("movies/{id}", (int id) =>
+{
+    movies.RemoveAll(movie => movie.Id == id);
+    return Results.NoContent();
+});
 
 app.Run();
