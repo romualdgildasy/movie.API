@@ -1,10 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace movie.API.Dtos;
 
 public record class CreateMovieDto
 (
-    string Title,
-    string Director,
+    [Required] string Title,
+    [Required] string Director,
     DateOnly ReleaseDate
 );

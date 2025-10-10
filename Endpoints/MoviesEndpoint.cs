@@ -13,7 +13,9 @@ public static class MoviesEndpoint
     ];
      public static RouteGroupBuilder MapMoviesEndpoint (this WebApplication app)
      {
-        var group = app.MapGroup("/movies");
+        var group = app.MapGroup("/movies")
+                       .WithParameterValidation();
+                       
             //creation de la route de get
         group.MapGet("/", () => movies);    
 
@@ -25,10 +27,6 @@ public static class MoviesEndpoint
             //creation de la route de post
                 group.MapPost("/", (CreateMovieDto newMovie) =>
                 {
-                    if (string.IsNullOrEmpty(newMovie.Title))
-                    {
-                        return Results.BadRequest("Le titre du film est obligatoire.");
-                    }
                     MovieDto movie = new
                         (
                         Id: movies.Count + 1,
