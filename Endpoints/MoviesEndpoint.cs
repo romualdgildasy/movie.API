@@ -1,14 +1,21 @@
-using System;
+using movie.API.Dtos;
 
 namespace movie.API.endpoints;
 
 public static class MoviesEndpoint
 {
-     public static RouterGroupBuilder MapMoviesEndpoint (this WebApplication app)
+
+    private static readonly List<MovieDto> movies =
+    [
+        new(1,"Inception","Christopher Nolan", new DateOnly(2010,7,16)),
+        new(2,"Matrix","Toukof Lerusse", new DateOnly(1993,3,31)),
+        new(3,"Le Parrain","Francis Ford", new DateOnly(1972,3,24)),
+    ];
+     public static RouteGroupBuilder MapMoviesEndpoint (this WebApplication app)
      {
         var group = app.MapGroup("/movies");
-
-        group.MapGet("/", () => movies);
+            //creation de la route de get
+        group.MapGet("/", () => movies);    
 
                 group.MapGet("/{id}", (int id) =>
                 {
@@ -18,6 +25,10 @@ public static class MoviesEndpoint
             //creation de la route de post
                 group.MapPost("/", (CreateMovieDto newMovie) =>
                 {
+                    if (string.IsNullOrEmpty(newMovie.Title))
+                    {
+                        return Results.BadRequest("Le titre du film est obligatoire.");
+                    }
                     MovieDto movie = new
                         (
                         Id: movies.Count + 1,
@@ -55,6 +66,6 @@ public static class MoviesEndpoint
                     movies.RemoveAll(movie => movie.Id == id);
                     return Results.NoContent();
                 });
-
+            return group;
     }
 }
