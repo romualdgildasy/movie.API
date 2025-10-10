@@ -6,7 +6,7 @@ public static class MoviesEndpoint
 {
      public static RouterGroupBuilder MapMoviesEndpoint (this WebApplication app)
      {
-        var group = app.MapGroup("/movies")
+        var group = app.MapGroup("/movies");
 
         group.MapGet("/", () => movies);
 
